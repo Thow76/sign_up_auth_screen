@@ -18,14 +18,34 @@ class AuthForm extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
+                    //Validating input
+
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || !value.contains('@')) {
+                          return 'Please enter a valid email address.';
+                        }
+                        return null;
+                      },
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(labelText: 'Email address'),
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 4) {
+                          return 'Please enter at least 4 characters.';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(labelText: 'Username'),
                     ),
                     TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty || value.length < 7) {
+                          return 'Password must be at least 7 characters long.';
+                        }
+                        return null;
+                      },
                       decoration: InputDecoration(labelText: 'Password'),
                       // Hide password
                       obscureText: true,
@@ -38,6 +58,7 @@ class AuthForm extends StatelessWidget {
                       onPressed: () {},
                     ),
                     FlatButton(
+                      textColor: Theme.of(context).primaryColor,
                       onPressed: () {},
                       child: Text('Create Account'),
                     ),
