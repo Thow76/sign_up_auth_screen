@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import '../widgets/auth_form.dart';
@@ -21,12 +22,20 @@ class _AuthScreenState extends State<AuthScreen> {
   async {
     UserCredential authResult;
 
-    if (isLogin) {
-      authResult = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
-    } else {
-      authResult = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+    //Try catch exception for username and password errors
+    try {
+      if (isLogin) {
+        authResult = await _auth.signInWithEmailAndPassword(
+            email: email, password: password);
+      } else {
+        authResult = await _auth.createUserWithEmailAndPassword(
+            email: email, password: password);
+      }
+    } on PlatformException catch (err) {
+      var message = "An error ocurred, please check your username or password";
+      if (err.message != null) {
+        message = err.message;
+      }
     }
   }
 
