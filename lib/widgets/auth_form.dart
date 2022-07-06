@@ -49,9 +49,10 @@ class _AuthFormState extends State<AuthForm> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    //Validating input
-
                     TextFormField(
+                        //Ensures values are fixed to correct imput field
+                        key: ValueKey('email'),
+                        //Validating input
                         validator: (value) {
                           if (value!.isEmpty || !value.contains('@')) {
                             return 'Please enter a valid email address.';
@@ -60,13 +61,16 @@ class _AuthFormState extends State<AuthForm> {
                         },
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(labelText: 'Email address'),
+
                         //Function saving the input
                         onSaved: (value) {
                           _userEmail = value!;
                         }),
+
                     //Controls whether the username field is displayed according to login/sign up
                     if (!_isLogin)
                       TextFormField(
+                          key: ValueKey('username'),
                           validator: (value) {
                             if (value!.isEmpty || value.length < 4) {
                               return 'Please enter at least 4 characters.';
@@ -74,11 +78,13 @@ class _AuthFormState extends State<AuthForm> {
                             return null;
                           },
                           decoration: InputDecoration(labelText: 'Username'),
+                          //Function saving the input
                           onSaved: (value) {
                             _userName = value!;
                           }),
 
                     TextFormField(
+                        key: ValueKey('password'),
                         validator: (value) {
                           if (value!.isEmpty || value.length < 7) {
                             return 'Password must be at least 7 characters long.';
@@ -86,8 +92,10 @@ class _AuthFormState extends State<AuthForm> {
                           return null;
                         },
                         decoration: InputDecoration(labelText: 'Password'),
+
                         // Hide password
                         obscureText: true,
+                        //Function saving the input
                         onSaved: (value) {
                           _userPassword = value!;
                         }),
