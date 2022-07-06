@@ -4,19 +4,23 @@ import '../widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 
 class AuthScreen extends StatefulWidget {
-  const AuthScreen({Key? key}) : super(key: key);
-
   @override
   State<AuthScreen> createState() => _AuthScreenState();
 }
 
 class _AuthScreenState extends State<AuthScreen> {
+  //Function that adds info to Firebase
+
+  void _submitAuthForm(
+      String email, String password, String userName, bool isLogin) {}
   @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
-      body: AuthForm(),
+      body: AuthForm(
+        _submitAuthForm,
+      ),
     );
   }
 }
